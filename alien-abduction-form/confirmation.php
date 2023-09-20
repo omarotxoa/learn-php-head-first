@@ -16,6 +16,9 @@
         $how_many = $_POST['howMany'];
         $what_they_did = $_POST['whatTheyDid'];
         $other = $_POST['other'];
+        $first_name = $_POST['firstName'];
+        $last_name = $_POST['lastName'];
+        $what_they_did = $_POST['whatTheyDid'];
 
         $to = 'email@test.com';
         $subject = 'Aliens Abducted Me - Abduction Report';
@@ -36,6 +39,19 @@
         echo 'Was Fang there? ' . $fang_spotted . '<br>';
         echo 'Other comments: ' . $other . '<br>';
         echo 'Your email address is ' . $email;
+
+        $dbc = mysqli_connect('localhost', 'root', '', 'aliendatabase')
+            or die('Error connecting to MySQL server.');
+
+        $query = 
+        "INSERT INTO aliens_abduction (first_name, last_name, when_it_happened, how_many, alien_description, what_they_did, fang_spotted, other, email, how_long) " .
+        "VALUES ('$first_name', '$last_name', '$when_it_happened', '$how_many', '$alien_description', '$what_they_did', '$fang_spotted', '$other', '$email', '$how_long')";
+
+        $result = mysqli_query($dbc, $query)
+            or die('Error querying database.');
+
+        mysqli_close($dbc); 
+
     ?>
 
 </body>
