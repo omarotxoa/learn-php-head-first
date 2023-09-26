@@ -1,19 +1,21 @@
 <?php 
 
 // connect to the db
+$db = new mysqli('localhost', 'root', '', 'elvis_store');
 
 // insert form data
 
 $form_data = $_POST;
 
-var_dump($form_data);
-
 $email = $_POST['email'];
 $first_name = $_POST['first-name'];
 $last_name = $_POST['last-name'];
 
-echo '<pre>';
-print_r($email) . '<br>';
-print_r($first_name) . '<br>';
-print_r($last_name) . '<br>';
-echo '</pre>'; 
+$sql =  "INSERT INTO email_list(first_name, last_name, email) VALUES ('$first_name', '$last_name', '$email')";
+ 
+$result = mysqli_query($db, $sql)
+    or die('Error querying db');
+
+mysqli_close($db);
+
+header('Location: addemail.html');
